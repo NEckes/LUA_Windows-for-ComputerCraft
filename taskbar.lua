@@ -22,7 +22,7 @@ local function main()
     if e[4]~=({conf.taskBar.area.getPosition()})[2] then goto START end
     if (e[1]=="mouse_click" and e[2]==1) or e[1]=="monitor_touch" then
       if e[3]<=#conf.taskBar.startBtn.text+2 then
-        cclite.message("START")
+        startMenu.open()
         else
         local pos = #conf.taskBar.startBtn.text+3
         for i,j in pairs(order) do
@@ -45,7 +45,7 @@ local function createHandle(ID)
   return handle
   end
 local function onError(PID,err)
-  term.setCursorPos(1,1) error(err)
+  cclite.message(err)
   end
 function remove(ID)
   tabs[ID] = nil

@@ -22,5 +22,6 @@ taskBar = {
     }
   }
 startMenu = {
-  area = window.create(term.current(),1,3,19,h-4)
+  area = window.create(term.current(),1,3,19,h-3,false),
+  col = colors.yellow
   }
