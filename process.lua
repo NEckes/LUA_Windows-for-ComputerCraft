@@ -15,9 +15,11 @@ function terminate(PID)
   end
 function insert_processEvent(data)
   processEvent = data
+  insert_processEvent = nil
   end
 function insert_checkValid(data)
   checkValid = data
+  insert_checkValid = nil
   end
 function start()
   local e = {}
