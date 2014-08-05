@@ -20,10 +20,11 @@ shell.run("clear")
 
 loadFile("conf.lua")
 loadFile("process.lua")
-loadFile("taskbar.lua") taskbar.start()
+loadFile("taskbar.lua")
 loadFile("startMenu.lua")
 loadFile("win.lua")
 loadFile("desktop.lua")
+taskbar.start()
 
 a = win.create(2,2,20,10,"TEST",function() shell.run("shell") end)
 b = win.create(7,7,20,10,"TEST2",function() shell.run("shell") end)
