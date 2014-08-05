@@ -1,0 +1,33 @@
+local function loadFile(Fname)
+  local tEnv = {}
+  setmetatable( tEnv, { __index = _G } )
+  local fnAPI, err = loadfile( Fname )
+  if fnAPI then
+    setfenv( fnAPI, tEnv )
+    fnAPI()
+    else
+    printError( err )
+    return false
+    end
+  local tAPI = {}
+  for k,v in pairs( tEnv ) do
+    tAPI[k] =  v
+    end
+  _G[string.sub(Fname,1,#Fname-4)] = tAPI  
+  end
+
+shell.run("clear")
+
+loadFile("conf.lua")
+loadFile("process.lua")
+loadFile("taskbar.lua") taskbar.start()
+loadFile("startMenu.lua")
+loadFile("win.lua")
+loadFile("desktop.lua")
+
+a = win.create(2,2,20,10,"TEST",function() shell.run("shell") end)
+b = win.create(7,7,20,10,"TEST2",function() shell.run("shell") end)
+a.setVisible(true)
+b.setVisible(true)
+
+process.start()
