@@ -1,3 +1,4 @@
+local pause = false
 local function IDbyPID(PID)
   for i,j in pairs(obj) do
     if j.PID==PID then return i end
@@ -136,6 +137,9 @@ local function order_add(ID,pos)
   draw()
   end
 
+function redraw() -- external only
+  draw()
+  end
 function create(x,y,w,h,title,func)
   local data = {}
   data.ID = #obj+1
@@ -231,11 +235,17 @@ function setButtons(ID,btn1,btn2,btn3)
   if btn3 then data.btn[3] = btn3 end
   drawFrame(ID)
   end
+function pause()
+  pause = true
+  end
+function resume()
+  pause = false
+  end
 
 process.insert_processEvent(function(e)
   local arr = {}
   for i,j in pairs(process.p) do if j.type~="WINDOW" and e[1]~="terminate" then table.insert(arr,i,e) end end
-  if #obj == 0 then return arr end
+  if #obj == 0 or pause then return arr end
   if ({key=1,char=1,terminate=1})[e[1]]==1 and order[1]~=nil then
     table.insert(arr,obj[order[1]].PID,e)
   elseif ({mouse_click=1,monitor_touch=1,mouse_scroll=1,mouse_drag=1})[e[1]]==1 then
