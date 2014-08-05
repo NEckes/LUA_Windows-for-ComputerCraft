@@ -1,4 +1,4 @@
-local pause = false
+local Bpause = false
 local function IDbyPID(PID)
   for i,j in pairs(obj) do
     if j.PID==PID then return i end
@@ -236,16 +236,16 @@ function setButtons(ID,btn1,btn2,btn3)
   drawFrame(ID)
   end
 function pause()
-  pause = true
+  Bpause = true
   end
 function resume()
-  pause = false
+  Bpause = false
   end
 
 process.insert_processEvent(function(e)
   local arr = {}
   for i,j in pairs(process.p) do if j.type~="WINDOW" and e[1]~="terminate" then table.insert(arr,i,e) end end
-  if #obj == 0 or pause then return arr end
+  if #obj == 0 or Bpause==true then return arr end
   if ({key=1,char=1,terminate=1})[e[1]]==1 and order[1]~=nil then
     table.insert(arr,obj[order[1]].PID,e)
   elseif ({mouse_click=1,monitor_touch=1,mouse_scroll=1,mouse_drag=1})[e[1]]==1 then
