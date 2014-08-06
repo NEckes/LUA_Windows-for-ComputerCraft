@@ -1,5 +1,5 @@
 local Bpause = false
-local nativeterm = conf.win
+local nativeterm = conf.desktop.area
 local obj = {}
 local order = {}
 local function IDbyPID(PID)
@@ -150,7 +150,7 @@ function create(x,y,w,h,title,func)
   data.visible = false
   data.canResize = true
   data.canMove = true
-  data.frame = window.create(conf.win,x,y,w,h,false)
+  data.frame = window.create(nativeterm,x,y,w,h,false)
   data.window = window.create(data.frame,2,2,w-2,h-2,true)
   data.title = title
   data.PID = process.create(func,{onTerminate = onTerminate, onError = onError, screen = data.window, type = "WINDOW"})

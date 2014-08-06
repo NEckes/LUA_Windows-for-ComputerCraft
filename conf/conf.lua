@@ -11,7 +11,9 @@ frame = {
     minBtn = {"_"}
     }
   }
-win = window.create(term.current(),1,1,w,h-1)
+desktop = {
+  area = window.create(term.current(),1,1,w,h-1)
+  }
 taskBar = {
   area = window.create(term.current(),1,h,w,1),
   col = colors.blue,
@@ -22,6 +24,12 @@ taskBar = {
     }
   }
 startMenu = {
-  area = window.create(term.current(),1,3,19,h-3,false),
-  col = colors.yellow
+  area = window.create(term.current(),1,3,15,h-3,false),
+  head = {textCol = colors.white, col = colors.blue},
+  body = {textCol = colors.black, col = colors.lightGray},
+  elements = {
+    {"Beenden",os.shutdown},
+    {"Cmd",function() win.create(1,1,20,10,"Cmd",function() shell.run("shell") end).setVisible(true) end},
+    {"Einstellungen",function() end}
+    }
   }
