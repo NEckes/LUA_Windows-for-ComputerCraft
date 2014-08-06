@@ -12,6 +12,22 @@ local function processEvent(e)
   return result
   end
 
+function resumeProcess(j,evt)
+  if (j.f == nil or j.f == evt[1] or evt[1] == "terminate") then
+    if j.screen then term.redirect(j.screen) end
+    local ok,data = coroutine.resume(j.p,unpack(evt))
+    if ok then j.f = data else if j.onError then j.onError(PID,data) end end
+    if coroutine.status(j.p)=="dead" then if j.onTerminate then j.onTerminate(PID) end terminate(PID) end
+    end
+  end
+function stop()
+  term.redirect(term.native())
+  term.setBackgroundColor(colors.black)
+  term.setTextColor(colors.white)
+  term.clear()
+  term.setCursorPos(1,1)
+  error()
+  end
 function getProcesses()
   return p
   end
@@ -30,13 +46,7 @@ function start()
   local e = {}
   while true do
     for PID,evt in pairs(processEvent(e)) do
-      local j = p[PID]
-      if (j.f == nil or j.f == evt[1] or evt[1] == "terminate") then
-        if j.screen then term.redirect(j.screen) end
-        local ok,data = coroutine.resume(j.p,unpack(evt))
-        if ok then j.f = data else if j.onError then j.onError(PID,data) end end
-        if coroutine.status(j.p)=="dead" then if j.onTerminate then j.onTerminate(PID) end terminate(PID) end
-        end
+      resumeProcess(p[PID],evt)
       end
     e = {os.pullEventRaw()}
     cclite.message(e[1])

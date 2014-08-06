@@ -157,6 +157,7 @@ function create(x,y,w,h,title,func)
   data.save = {orderPos = 1}
   data.btn = {1,1,1}
   table.insert(obj,data)
+  process.resumeProcess(process.getProcesses()[data.PID],{})
   return createHandle(data.ID)
   end
 function setWindowState(ID,ws)

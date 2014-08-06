@@ -28,8 +28,9 @@ startMenu = {
   head = {textCol = colors.white, col = colors.blue},
   body = {textCol = colors.black, col = colors.lightGray},
   elements = {
+    {"Beenden -> Cmd",function() process.stop() end},
     {"Beenden",os.shutdown},
-    {"Cmd",function() win.create(1,1,20,10,"Cmd",function() shell.run("shell") end).setVisible(true) end},
+    {"Cmd",function() win.create(1,1,20,10,"Cmd",function() os.run({},"/rom/programs/shell") end).setVisible(true) end},
     {"Einstellungen",function() end}
     }
   }
