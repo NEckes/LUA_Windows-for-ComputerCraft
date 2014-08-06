@@ -1,3 +1,4 @@
+local p = {}
 local function checkValid(j,e)
   return true
   end
@@ -9,6 +10,10 @@ local function processEvent(e)
       end
     end
   return result
+  end
+
+function getProcesses()
+  return p
   end
 function terminate(PID)
   p[PID] = nil
@@ -48,5 +53,3 @@ function create(func,data)
   table.insert(p,new)
   return #p
   end
-
-p = {}

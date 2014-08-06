@@ -1,4 +1,7 @@
 local Bpause = false
+local nativeterm = conf.win
+local obj = {}
+local order = {}
 local function IDbyPID(PID)
   for i,j in pairs(obj) do
     if j.PID==PID then return i end
@@ -244,7 +247,7 @@ function resume()
 
 process.insert_processEvent(function(e)
   local arr = {}
-  for i,j in pairs(process.p) do if j.type~="WINDOW" and e[1]~="terminate" then table.insert(arr,i,e) end end
+  for i,j in pairs(process.getProcesses()) do if j.type~="WINDOW" and e[1]~="terminate" then table.insert(arr,i,e) end end
   if #obj == 0 or Bpause==true then return arr end
   if ({key=1,char=1,terminate=1})[e[1]]==1 and order[1]~=nil then
     table.insert(arr,obj[order[1]].PID,e)
@@ -255,9 +258,7 @@ process.insert_processEvent(function(e)
       if modE~=nil then if modE~=false then table.insert(arr,obj[order[i]].PID,modE) end break end
       end
   elseif e[1]=="window_resize" then table.insert(arr,obj[order[1]].PID,{"term_resize"})
-    else for i,j in pairs(process.p) do if j.type=="WINDOW" then table.insert(arr,i,e) end end end
+    else for i,j in pairs(process.getProcesses()) do if j.type=="WINDOW" then table.insert(arr,i,e) end end end
   return arr
   end)
 
-nativeterm = conf.win
-obj = {} order = {}

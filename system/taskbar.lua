@@ -1,3 +1,5 @@
+local tabs = {}
+local order = {}
 local function draw()
   term.redirect(conf.taskBar.area)
   term.setCursorPos(1,1)
@@ -47,6 +49,7 @@ local function createHandle(ID)
 local function onError(PID,err)
   cclite.message(err)
   end
+
 function remove(ID)
   tabs[ID] = nil
   for i,j in pairs(order) do if j==ID then table.remove(order,i) break end end
@@ -75,5 +78,3 @@ function addTab(text,func)
   draw()
   return createHandle(data.ID)
   end
-
-tabs = {} order = {}
