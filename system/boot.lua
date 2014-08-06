@@ -18,17 +18,12 @@ local function loadFile(Fname)
 
 shell.run("clear")
 
-loadFile("conf.lua")
-loadFile("process.lua")
-loadFile("taskbar.lua")
-loadFile("startMenu.lua")
-loadFile("win.lua")
-loadFile("desktop.lua")
+loadFile("conf/conf.lua")
+loadFile("system/process.lua")
+loadFile("system/taskbar.lua")
+loadFile("system/startMenu.lua")
+loadFile("system/win.lua")
+loadFile("system/desktop.lua")
 taskbar.start()
-
-a = win.create(2,2,20,10,"TEST",function() shell.run("shell") end)
-b = win.create(7,7,20,10,"TEST2",function() shell.run("shell") end)
-a.setVisible(true)
-b.setVisible(true)
 
 process.start()
