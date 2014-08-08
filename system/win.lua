@@ -45,6 +45,7 @@ local function drawFrame(ID)
 local function draw()
   nativeterm.setBackgroundColor(colors.black)
   nativeterm.clear()
+  desktop.draw()
   for i=#order,1,-1 do
     obj[order[i]].frame.redraw()
     obj[order[i]].window.redraw()
